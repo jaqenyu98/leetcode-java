@@ -1,7 +1,7 @@
 package sort;
 
 public class InsertionSort {
-    public static void insertionSort(int[] nums) {
+    public void insertionSort(int[] nums) {
         for (int i = 1; i < nums.length; i++) {
             int temp = nums[i];
             int j = i;

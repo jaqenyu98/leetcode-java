@@ -1,4 +1,6 @@
-class MyLinkedList {
+package linkedList;
+
+public class MyLinkedList {
     int size;
     ListNode head;
     ListNode tail;
@@ -98,24 +100,11 @@ class MyLinkedList {
         cur.next = null;
         --size;
     }
-
-    public static void main(String[] args) {
-        MyLinkedList l = new MyLinkedList();
-        l.addAtHead(7);
-        l.addAtTail(7);
-        l.addAtHead(9);
-        l.addAtTail(8);
-        l.addAtHead(6);
-        l.addAtHead(0);
-        l.addAtHead(0);
-        l.addAtTail(4);
-        System.out.println(l.get(2));
-    }
 }
 
 /**
- * Your MyLinkedList object will be instantiated and called as such:
- * MyLinkedList obj = new MyLinkedList();
+ * Your linkedList.MyLinkedList object will be instantiated and called as such:
+ * linkedList.MyLinkedList obj = new linkedList.MyLinkedList();
  * int param_1 = obj.get(index);
  * obj.addAtHead(val);
  * obj.addAtTail(val);

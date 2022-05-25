@@ -1,12 +1,12 @@
 package sort;
 
 public class MergeSort {
-    public static void mergeSort(int[] nums) {
+    public void mergeSort(int[] nums) {
         int[] temp = new int[nums.length];
         divideMerge(nums, temp, 0, nums.length - 1);
     }
 
-    private static void divideMerge(int[] nums, int[] temp, int left, int right) {
+    private void divideMerge(int[] nums, int[] temp, int left, int right) {
         if (left >= right)
             return;
         int mid = left + (right - left) / 2;

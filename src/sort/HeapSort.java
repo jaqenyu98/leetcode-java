@@ -1,7 +1,7 @@
 package sort;
 
 public class HeapSort {
-    public static void heapSort(int[] nums) {
+    public void heapSort(int[] nums) {
         int len = nums.length;
         //建最大堆
         for (int i = len / 2 - 1; i >= 0; i--) {
@@ -15,7 +15,7 @@ public class HeapSort {
     }
 
     //递归写法
-    private static void siftDownRecursive(int[] nums, int cur, int len) {
+    private void siftDownRecursive(int[] nums, int cur, int len) {
         int leftChild = 2 * cur + 1;
         int rightChild = 2 * cur + 2;
         int maxIndex = cur;
@@ -30,7 +30,7 @@ public class HeapSort {
     }
 
     //迭代写法
-    private static void siftDownIterative(int[] nums, int cur, int len) {
+    private void siftDownIterative(int[] nums, int cur, int len) {
         while (2 * cur + 1 < len) {
             int leftChild = 2 * cur + 1;
             int rightChild = 2 * cur + 2;
@@ -48,7 +48,7 @@ public class HeapSort {
         }
     }
 
-    private static void swap(int[] nums, int index1, int index2) {
+    private void swap(int[] nums, int index1, int index2) {
         int temp = nums[index1];
         nums[index1] = nums[index2];
         nums[index2] = temp;
