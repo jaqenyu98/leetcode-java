@@ -1,14 +1,29 @@
-import bfs.Islands;
+import array.ThreeSum;
+import bfs.SerializeDeserializeBinaryTree;
 import binarySearch.FirstLastPosition;
 import dfs.Combination;
 import dfs.Permutation;
 import dp.Backpack;
 import dp.UniquePaths;
+import dp.prefixSum.MaximumSubarray;
+import dp.prefixSum.SubarraySumEqualsK;
+import graph.WordLadder;
+import graph.matrix.RottingOranges;
+import graph.matrix.TheMaze;
+import graph.topoSort.AlienDictionary;
 import linkedList.MyLinkedList;
+import multiPointers.MultiplyStrings;
 import multiPointers.RemoveDuplicates;
+import multiPointers.TrappingRainWater;
+import multiPointers.slidingWindow.LongestSubstringWithoutRepeatChar;
+import multiPointers.slidingWindow.MinimumWindowSubstring;
+import multiPointers.slidingWindow.SlidingWindowMaximum;
+import multiPointers.slidingWindow.SubarrayProductLessThanK;
+import multiPointers.string.LongestPalindromicSubstring;
 import org.junit.jupiter.api.Test;
 import sort.*;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.PriorityQueue;
 
@@ -125,23 +140,97 @@ public class MyTest {
 
     @Test
     public void testIslands() {
-        char[][] grid = {
-                {'1', '1', '1', '1', '0'},
-                {'1', '1', '0', '1', '0'},
-                {'1', '1', '0', '0', '0'},
-                {'0', '0', '0', '0', '0'}
-        };
-        System.out.println(new Islands().numIslands(grid));
+        //System.out.println(new NumberOfIslands().numIslands2(grid));
     }
+
     @Test
     public void testBinarySearch() {
         int[] nums = {-1, 0, 2, 3, 4};
         int target = 5;
         int[] result = new FirstLastPosition().searchRange(nums, target);
     }
+
     @Test
     public void testRemoveDuplicates() {
-        int[] nums = {1,1,1,1,1,1,2,2,2,2,2,2,3};
+        int[] nums = {1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3};
         System.out.println(new RemoveDuplicates().removeDuplicates(nums, 2));
+    }
+
+    @Test
+    public void testTrappingWater() {
+        int[] nums = {4, 2, 0, 3, 2, 5};
+        System.out.println(new TrappingRainWater().trap2(nums));
+    }
+
+    @Test
+    public void testMultiplyStrings() {
+        System.out.println(new MultiplyStrings().multiply("123", "45"));
+    }
+
+    @Test
+    public void testPalindrome() {
+        System.out.println(new LongestPalindromicSubstring().longestPalindrome2("ababa"));
+    }
+
+    @Test
+    public void testLongestSubstring() {
+        System.out.println(new LongestSubstringWithoutRepeatChar().lengthOfLongestSubstring("abcabcbb"));
+    }
+
+    @Test
+    public void testMinWindowSubstring() {
+        System.out.println(new MinimumWindowSubstring().minWindow("ADOBECODEBANC", "ABC"));
+    }
+
+    @Test
+    public void testMaxSlidingWindow() {
+        int[] result = new SlidingWindowMaximum().maxSlidingWindow2(new int[]{9, 10, 9, -7, -4, -8, 2, -6}, 5);
+    }
+
+    @Test
+    public void testSubarrayProduct() {
+        System.out.println(new SubarrayProductLessThanK().numSubarrayProductLessThanK(new int[]{10, 2, 2, 5, 4, 4, 4, 3, 7, 7}, 289));
+    }
+
+    @Test
+    public void testMaxSubarray() {
+        System.out.println(new MaximumSubarray().maxSubArray(new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4}));
+    }
+
+    @Test
+    public void testSubarraySumEqualsK() {
+        System.out.println(new SubarraySumEqualsK().subarraySum(new int[]{-1, -1, -1}, -1));
+    }
+
+    @Test
+    public void testThreeSum() {
+        new ThreeSum().threeSum(new int[]{-1, 0, 1, 2, -1, -4});
+    }
+
+    @Test
+    public void testSDBST() {
+        System.out.println(new SerializeDeserializeBinaryTree().serialize(new SerializeDeserializeBinaryTree().deserialize("[1,2,3,null,null,4,5]")));
+    }
+
+    @Test
+    public void testAlienDictionary() {
+        System.out.println(new AlienDictionary().alienOrder(new String[]{"a", "ab"}));
+    }
+
+    @Test
+    public void testMaze() {
+        int[][] maze = {{0, 0, 0, 0, 0}, {1, 1, 0, 0, 1}, {0, 0, 0, 0, 0}, {0, 1, 0, 0, 1}, {0, 1, 0, 0, 0}};
+        System.out.println(new TheMaze().hasPath2(maze, new int[]{4, 3}, new int[]{0, 1}));
+    }
+
+    @Test
+    public void testRottingOranges(){
+        System.out.println(new RottingOranges().orangesRotting(new int[][]{{2,1,1},{1,1,0},{0,1,1}}));
+    }
+
+    @Test
+    public void testWordLadder() {
+        List<String> list = Arrays.asList("hot","dot","dog","lot","log","cog");
+        System.out.println(new WordLadder().ladderLength("hit", "cog", list));
     }
 }

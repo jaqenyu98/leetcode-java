@@ -1,9 +1,9 @@
-package bfs;
+package graph.matrix;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class Islands {
+public class NumberOfIslands {
     /*------------------------------------------dfs--------------------------------------------------------*/
     public int numIslands(char[][] grid) {
         //定义一个表示岛屿数量的变量
@@ -24,7 +24,6 @@ public class Islands {
         //返回岛屿的数量
         return count;
     }
-
     private void dfs(char[][] grid, int r, int c) {
         //检查是否超出grid范围
         if (!inArea(grid, r, c)) {
@@ -41,51 +40,46 @@ public class Islands {
         dfs(grid, r, c - 1);
         dfs(grid, r, c + 1);
     }
-
     private boolean inArea(char[][] grid, int r, int c) {
         return 0 <= r && r < grid.length
                 && 0 <= c && c < grid[0].length;
     }
-
     /*------------------------------------------bfs--------------------------------------------------------*/
-    public int numIslandsBfs(char[][] grid) {
-        int count = 0;
-        int rows = grid.length;
-        int cols = grid[0].length;
-        Queue<Integer> queue = new LinkedList<>();
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                if (grid[i][j] == '1') {
-                    grid[i][j] = '2';
-                    // 用一个数存两个信息：r和c
-                    queue.offer(i * cols + j);
-                    while (!queue.isEmpty()) {
-                        int temp = queue.poll();
-                        int r = temp / cols;
-                        int c = temp % cols;
-                        if (r - 1 >= 0 && grid[r - 1][c] == '1') {
-                            grid[r - 1][c] = '2';
-                            queue.offer((r - 1) * cols + c);
-                        }
-                        if (r + 1 < rows && grid[r + 1][c] == '1') {
-                            grid[r + 1][c] = '2';
-                            queue.offer((r + 1) * cols + c);
-                        }
-                        if (c - 1 >= 0 && grid[r][c - 1] == '1') {
-                            grid[r][c - 1] = '2';
-                            queue.offer(r * cols + c - 1);
-                        }
-                        if (c + 1 < cols && grid[r][c + 1] == '1') {
-                            grid[r][c + 1] = '2';
-                            queue.offer(r * cols + c + 1);
-                        }
+    public int numIslands2(char[][] grid) {
+        int result = 0;
+        int m = grid.length;
+        int n = grid[0].length;
+        Queue<int[]> queue = new LinkedList<>();
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] != '1')
+                    continue;
+                queue.offer(new int[]{i, j});
+                grid[i][j] = '2';
+                while (!queue.isEmpty()) {
+                    int[] cur = queue.poll();
+                    int row = cur[0];
+                    int col = cur[1];
+                    if (row + 1 < m && grid[row + 1][col] == '1'){
+                        grid[row + 1][col] = '2';
+                        queue.offer(new int[]{row + 1, col});
                     }
-                    count++;
+                    if (row - 1 >= 0 && grid[row - 1][col] == '1'){
+                        grid[row - 1][col] = '2';
+                        queue.offer(new int[]{row - 1, col});
+                    }
+                    if (col + 1 < n && grid[row][col + 1] == '1'){
+                        grid[row][col + 1] = '2';
+                        queue.offer(new int[]{row, col + 1});
+                    }
+                    if (col - 1 >= 0 && grid[row][col - 1] == '1'){
+                        grid[row][col - 1] = '2';
+                        queue.offer(new int[]{row, col - 1});
+                    }
                 }
+                result++;
             }
         }
-        //返回岛屿的数量
-        return count;
+        return result;
     }
-
 }

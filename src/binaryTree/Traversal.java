@@ -11,15 +11,18 @@ public class Traversal {
         inorderTraversalRecursive(root, result);
         return result;
     }
+
     /*------------------------------------------------inorder-----------------------------------------*/
-    //recursive inorder traversal for a binary tree
+    /*----------------Recursive------------------*/
     private void inorderTraversalRecursive(TreeNode node, List<Integer> result) {
-        if(node==null)
+        if (node == null)
             return;
         inorderTraversalRecursive(node.left, result);
         result.add(node.val);
         inorderTraversalRecursive(node.right, result);
     }
+
+    /*----------------Iterate------------------*/
     public List<Integer> inorderTraversalIterate(TreeNode root) {
         List<Integer> res = new ArrayList<>();
         Deque<TreeNode> stk = new LinkedList<>();
@@ -34,19 +37,23 @@ public class Traversal {
         }
         return res;
     }
+
     /*------------------------------------------------preorder-----------------------------------------*/
-    private void preorderTraversalRecursive(TreeNode root, List<Integer> result){
-        if(root==null)
+    /*----------------Recursive------------------*/
+    private void preorderTraversalRecursive(TreeNode root, List<Integer> result) {
+        if (root == null)
             return;
         result.add(root.val);
         preorderTraversalRecursive(root.left, result);
         preorderTraversalRecursive(root.right, result);
     }
+
+    /*----------------Iterate------------------*/
     public List<Integer> preorderTraversalIterate(TreeNode root) {
         List<Integer> result = new ArrayList<>();
         Deque<TreeNode> stack = new LinkedList<>();
-        while (root!=null || !stack.isEmpty()) {
-            while (root!=null) {
+        while (root != null || !stack.isEmpty()) {
+            while (root != null) {
                 result.add(root.val);
                 stack.push(root);
                 root = root.left;
@@ -56,7 +63,9 @@ public class Traversal {
         }
         return result;
     }
+
     /*------------------------------------------------postorder-----------------------------------------*/
+    /*----------------Recursive------------------*/
     private void postorderTraversalRecursive(TreeNode node, List<Integer> result) {
         if (node == null)
             return;
@@ -64,6 +73,8 @@ public class Traversal {
         postorderTraversalRecursive(node.right, result);
         result.add(node.val);
     }
+
+    /*----------------Iterate------------------*/
     public List<Integer> postorderTraversalIterate(TreeNode root) {
         List<Integer> res = new ArrayList<>();
         Deque<TreeNode> stack = new LinkedList<>();
@@ -88,20 +99,6 @@ public class Traversal {
         }
         return res;
     }
-    /*--------------------------------------------------------------------------------------------------*/
-    public static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-        TreeNode() {}
-        TreeNode(int val) {
-            this.val = val;
-        }
-        TreeNode(int val, TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-        }
-    }
+
 }
 
