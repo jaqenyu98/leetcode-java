@@ -1,5 +1,6 @@
 package multiPointers;
 
+import java.util.PriorityQueue;
 import java.util.Random;
 
 public class KthLargestElement {
@@ -49,6 +50,7 @@ public class KthLargestElement {
     }
 
     /*----------------------------------------------堆排解法--------------------------------------------------*/
+    /*-----------------------------手写堆----------------------------*/
     public int findKthLargest2(int[] nums, int k) {
         int len = nums.length;
         for (int i = len / 2 - 1; i >= 0; i--) {
@@ -60,7 +62,6 @@ public class KthLargestElement {
         }
         return nums[0];
     }
-
     private void siftDown(int[] nums, int cur, int len) {
         int leftChild = 2 * cur + 1;
         int rightChild = 2 * cur + 2;
@@ -76,10 +77,31 @@ public class KthLargestElement {
             siftDown(nums, maxIndex, len);
         }
     }
-
     private void swap(int[] nums, int index1, int index2) {
         int temp = nums[index1];
         nums[index1] = nums[index2];
         nums[index2] = temp;
+    }
+    /*-----------------------------size为n的最大堆----------------------------*/
+    public int findKthLargest3(int[] nums, int k) {
+        PriorityQueue<Integer> pqueue = new PriorityQueue<>((o1, o2) -> o2 - o1);
+        for (int num : nums)
+            pqueue.offer(num);
+        for (int i = 0; i < k - 1; i++)
+            pqueue.poll();
+        return pqueue.poll();
+    }
+    /*-----------------------------size为k的最小堆----------------------------*/
+    public int findKthLargest4(int[] nums, int k) {
+        PriorityQueue<Integer> pqueue = new PriorityQueue<>((o1, o2) -> o1 - o2);
+        for (int i = 0; i < k; i++)
+            pqueue.offer(nums[i]);
+        for (int i = k; i < nums.length; i++) {
+            if (nums[i] > pqueue.peek()) {
+                pqueue.poll();
+                pqueue.offer(nums[i]);
+            }
+        }
+        return pqueue.peek();
     }
 }

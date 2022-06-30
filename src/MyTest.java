@@ -1,8 +1,13 @@
 import array.ThreeSum;
 import bfs.SerializeDeserializeBinaryTree;
 import binarySearch.FirstLastPosition;
+import binaryTree.ConstructBinaryTreeFromTraversal;
+import binaryTree.SerializeDeserializeBST;
+import binaryTree.TreeNode;
 import dfs.Combination;
+import dfs.GenerateParentheses;
 import dfs.Permutation;
+import dfs.TargetSum;
 import dp.Backpack;
 import dp.UniquePaths;
 import dp.prefixSum.MaximumSubarray;
@@ -102,7 +107,7 @@ public class MyTest {
     public void testDfsCombination() {
         int[] candidates = {2, 3, 6, 7};
         int target = 7;
-        List<List<Integer>> result = new Combination().combinationSumPrune(candidates, target);
+        List<List<Integer>> result = new Combination().combinationSum(candidates, target);
         for (List<Integer> rst : result) {
             for (int i : rst) {
                 System.out.print(i + " ");
@@ -208,8 +213,11 @@ public class MyTest {
     }
 
     @Test
-    public void testSDBST() {
-        System.out.println(new SerializeDeserializeBinaryTree().serialize(new SerializeDeserializeBinaryTree().deserialize("[1,2,3,null,null,4,5]")));
+    public void testSDBT() {
+        SerializeDeserializeBinaryTree test = new SerializeDeserializeBinaryTree();
+        TreeNode root = new TreeNode(2);
+        //System.out.println(test.serialize2(root));
+        //TreeNode res = test.deserialize2(test.serialize2(root));
     }
 
     @Test
@@ -232,5 +240,38 @@ public class MyTest {
     public void testWordLadder() {
         List<String> list = Arrays.asList("hot","dot","dog","lot","log","cog");
         System.out.println(new WordLadder().ladderLength("hit", "cog", list));
+    }
+
+    @Test
+    public void testConsructBT() {
+        new ConstructBinaryTreeFromTraversal().constructFromPrePost(new int[]{1,2,4,5,3,6,7}, new int[]{4,5,2,6,7,3,1});
+    }
+
+    @Test
+    public void testKthSmallestInBST(){
+        TreeNode root = new TreeNode(3);
+        root.left = new TreeNode(1);
+        root.right = new TreeNode(4);
+        root.left.right = new TreeNode(2);
+        //System.out.println(new KthSmallestElementInBST().kthSmallest(root, 1));
+    }
+
+    @Test
+    public void testSDBST() {
+        SerializeDeserializeBST test = new SerializeDeserializeBST();
+        TreeNode root = new TreeNode(2);
+        root.left = new TreeNode(1);
+        root.right = new TreeNode(3);
+        TreeNode res = test.deserialize(test.serialize(root));
+    }
+
+    @Test
+    public void testGenerateParentheses() {
+        System.out.println(new GenerateParentheses().generateParenthesis(3));
+    }
+
+    @Test
+    public void testTargetSum() {
+        System.out.println(new TargetSum().findTargetSumWays3(new int[]{1,1,1,1,1}, 3));
     }
 }

@@ -123,7 +123,7 @@ public class QuickSort {
         threePartsPartition(nums, left, p - 1);
         threePartsPartition(nums, r, right);
     }
-    /*--------------------------------------------------------另一种递归方法，这样可以获得每次的pivot，解决Top K的问题时很有用！----------------------------------------------------------*/
+    /*--------------------------------------------------------另一种partition写法，这样可以获得每次的pivot，解决Top K的问题时很有用！----------------------------------------------------------*/
     public void quickSort(int[] nums) {
         quickSort(nums, 0, nums.length - 1);
     }

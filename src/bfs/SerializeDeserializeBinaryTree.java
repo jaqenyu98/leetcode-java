@@ -1,6 +1,5 @@
 package bfs;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -56,18 +55,21 @@ public class SerializeDeserializeBinaryTree {
             return "null";
         return root.val + "," + serialize2(root.left) + "," + serialize2(root.right);
     }
+    int idx = 0;
     public TreeNode deserialize2(String data) {
-        Queue<String> queue = new LinkedList<>(Arrays.asList(data.split(",")));
-        return dfs(queue);
+        String[] strs = data.split(",");
+        return dfs(strs);
     }
-    private TreeNode dfs(Queue<String> queue) {
-        String str = queue.poll();
+    private TreeNode dfs(String[] strs) {
+        String str = strs[idx];
         if ("null".equals(str)) {
             return null;
         }
         TreeNode node = new TreeNode(Integer.parseInt(str));
-        node.left = dfs(queue);
-        node.right = dfs(queue);
+        idx++;
+        node.left = dfs(strs);
+        idx++;
+        node.right = dfs(strs);
         return node;
     }
 }

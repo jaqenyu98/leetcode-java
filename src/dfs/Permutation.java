@@ -5,62 +5,53 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Permutation {
+    List<List<Integer>> result = new ArrayList<>();
+    List<Integer> path = new ArrayList<>();
     public List<List<Integer>> permute(int[] nums) {
-        List<List<Integer>> result = new ArrayList<>();
-        List<Integer> path = new ArrayList<>();
-        boolean[] isVisited = new boolean[nums.length];
-        dfs(nums, result, path, isVisited);
+        // boolean数组记录是否访问过！
+        boolean[] visited = new boolean[nums.length];
+        dfs(nums, visited);
         return result;
     }
-    private void dfs(int[] nums, List<List<Integer>> result, List<Integer> path, boolean[] isVisited) {
+    private void dfs(int[] nums, boolean[] visited) {
+        // 结束条件是这个！
         if (path.size() == nums.length) {
             result.add(new ArrayList<>(path));
             return;
         }
         for (int i = 0; i < nums.length; i++) {
-//            这两种写法一个意思，下面那种看着顺眼。
-//            if (isVisited[i])
-//                continue;
-//            path.add(nums[i]);
-//            isVisited[i] = true;
-//            dfs(nums, result, path, isVisited);
-//            path.remove(path.size() - 1);
-//            isVisited[i] = false;
-            if (!isVisited[i]) {
-                path.add(nums[i]);
-                isVisited[i] = true;
-                dfs(nums, result, path, isVisited);
-                path.remove(path.size() - 1);
-                isVisited[i] = false;
-            }
+            if (visited[i])
+                continue;
+            path.add(nums[i]);
+            visited[i] = true;
+            dfs(nums, visited);
+            path.remove(path.size() - 1);
+            visited[i] = false;
         }
     }
     /*------------------------------------------40题--------------------------------------------------------*/
+    // List<List<Integer>> result = new ArrayList<>();
+    // List<Integer> path = new ArrayList<>();
     public List<List<Integer>> permuteUnique(int[] nums) {
-        List<List<Integer>> result = new ArrayList<>();
-        List<Integer> path = new ArrayList<>();
-        boolean[] isVisited = new boolean[nums.length];
-        //去重需要排序
+        // 去重需要先排序
         Arrays.sort(nums);
-        dfs2(nums, result, path, isVisited);
+        boolean[] visited = new boolean[nums.length];
+        dfs2(nums, visited);
         return result;
     }
-    private void dfs2(int[] nums, List<List<Integer>> result, List<Integer> path, boolean[] isVisited) {
+    private void dfs2(int[] nums, boolean[] visited) {
         if (path.size() == nums.length) {
             result.add(new ArrayList<>(path));
             return;
         }
         for (int i = 0; i < nums.length; i++) {
-            //去重
-            if (i != 0 && nums[i] == nums[i - 1] && !isVisited[i - 1])
+            if (visited[i] || (i != 0 && nums[i] == nums[i - 1] && !visited[i - 1]))
                 continue;
-            if (!isVisited[i]) {
-                path.add(nums[i]);
-                isVisited[i] = true;
-                dfs(nums, result, path, isVisited);
-                path.remove(path.size() - 1);
-                isVisited[i] = false;
-            }
+            path.add(nums[i]);
+            visited[i] = true;
+            dfs2(nums, visited);
+            path.remove(path.size() - 1);
+            visited[i] = false;
         }
     }
 }

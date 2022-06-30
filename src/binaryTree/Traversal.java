@@ -6,99 +6,93 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Traversal {
-    public List<Integer> traversalRecusive(TreeNode root) {
-        List<Integer> result = new ArrayList<>();
-        inorderTraversalRecursive(root, result);
-        return result;
+    /*--------------------------------------------------Recursion--------------------------------------------------*/
+    List<Integer> inorder;
+    public List<Integer> inorderTraversal(TreeNode root) {
+        inorder = new ArrayList<>();
+        traversal(root);
+        return inorder;
     }
-
-    /*------------------------------------------------inorder-----------------------------------------*/
-    /*----------------Recursive------------------*/
-    private void inorderTraversalRecursive(TreeNode node, List<Integer> result) {
-        if (node == null)
-            return;
-        inorderTraversalRecursive(node.left, result);
-        result.add(node.val);
-        inorderTraversalRecursive(node.right, result);
-    }
-
-    /*----------------Iterate------------------*/
-    public List<Integer> inorderTraversalIterate(TreeNode root) {
-        List<Integer> res = new ArrayList<>();
-        Deque<TreeNode> stk = new LinkedList<>();
-        while (root != null || !stk.isEmpty()) {
-            while (root != null) {
-                stk.push(root);
-                root = root.left;
-            }
-            root = stk.pop();
-            res.add(root.val);
-            root = root.right;
-        }
-        return res;
-    }
-
-    /*------------------------------------------------preorder-----------------------------------------*/
-    /*----------------Recursive------------------*/
-    private void preorderTraversalRecursive(TreeNode root, List<Integer> result) {
+    public void traversal(TreeNode root) {
         if (root == null)
             return;
-        result.add(root.val);
-        preorderTraversalRecursive(root.left, result);
-        preorderTraversalRecursive(root.right, result);
+        traversal(root.left);
+        inorder.add(root.val);
+        traversal(root.right);
     }
-
-    /*----------------Iterate------------------*/
-    public List<Integer> preorderTraversalIterate(TreeNode root) {
+    /*--------------------------------------------------Iteration--------------------------------------------------*/
+    /*----------------------------inorder--------------------------*/
+    // 左中右
+    public List<Integer> inorderTraversal2(TreeNode root) {
         List<Integer> result = new ArrayList<>();
         Deque<TreeNode> stack = new LinkedList<>();
-        while (root != null || !stack.isEmpty()) {
-            while (root != null) {
-                result.add(root.val);
-                stack.push(root);
-                root = root.left;
+        if (root != null)
+            stack.push(root);
+        while (!stack.isEmpty()) {
+            TreeNode node = stack.pop();
+            if (node != null) {
+                // 先push右
+                if (node.right != null)
+                    stack.push(node.right);
+                // 在待处理节点前加一个null来标记，遇到null就知道下一个是待处理节点了。
+                // 将左节点放在待处理节点后push，意味着左节点永远在当前节点的栈顶，也就实现了递归思想中的先左再中最后右。
+                stack.push(node);
+                stack.push(null);
+                // 再push左
+                if (node.left != null)
+                    stack.push(node.left);
+            } else {
+                node = stack.pop();
+                result.add(node.val);
             }
-            root = stack.pop();
-            root = root.right;
         }
         return result;
     }
-
-    /*------------------------------------------------postorder-----------------------------------------*/
-    /*----------------Recursive------------------*/
-    private void postorderTraversalRecursive(TreeNode node, List<Integer> result) {
-        if (node == null)
-            return;
-        postorderTraversalRecursive(node.left, result);
-        postorderTraversalRecursive(node.right, result);
-        result.add(node.val);
-    }
-
-    /*----------------Iterate------------------*/
-    public List<Integer> postorderTraversalIterate(TreeNode root) {
-        List<Integer> res = new ArrayList<>();
+    /*----------------------------preorder--------------------------*/
+    public List<Integer> preorderTraversal(TreeNode root) {
+        List<Integer> preorder = new ArrayList<>();
         Deque<TreeNode> stack = new LinkedList<>();
-        TreeNode prev = null;
-        while (root != null || !stack.isEmpty()) {
-            while (root != null) {
-                stack.push(root);
-                root = root.left;
-            }
-            root = stack.pop();
-            //  没有右子树 or 右子树访问过了(或者说root.right是先前遍历过的节点prev)
-            if (root.right == null || root.right == prev) {
-                //把根加进去
-                res.add(root.val);
-                prev = root;
-                root = null;
+        if (root != null)
+            stack.push(root);
+        while (!stack.isEmpty()) {
+            TreeNode node = stack.pop();
+            if (node != null) {
+                if (node.right != null)
+                    stack.push(node.right);
+                if (node.left != null)
+                    stack.push(node.left);
+                stack.push(node);
+                stack.push(null);
             } else {
-                //否则 访问右子树
-                stack.push(root);
-                root = root.right;
+                node = stack.pop();
+                preorder.add(node.val);
             }
         }
-        return res;
+        return preorder;
     }
+    /*----------------------------postorder--------------------------*/
+    public List<Integer> postorderTraversal(TreeNode root) {
+        List<Integer> postorder = new ArrayList<>();
+        Deque<TreeNode> stack = new LinkedList<>();
+        if (root != null)
+            stack.push(root);
+        while (!stack.isEmpty()) {
+            TreeNode node = stack.pop();
+            if (node != null) {
+                stack.push(node);
+                stack.push(null);
+                if (node.right != null)
+                    stack.push(node.right);
+                if (node.left != null)
+                    stack.push(node.left);
+            } else {
+                node = stack.pop();
+                postorder.add(node.val);
+            }
+        }
+        return postorder;
+    }
+
 
 }
 
